@@ -70,4 +70,3 @@
         android:layout_toEndOf="@+id/play_circle" />
 
 </RelativeLayout>
-
