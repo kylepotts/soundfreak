@@ -4,14 +4,13 @@
     android:weightSum="1"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingBottom="30dp"
-    android:id="@+id/">
+    android:paddingBottom="30dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:text="Song Name"
-        android:id="@+id/textView"
+        android:id="@+id/media_songName_textview"
         android:layout_weight="0.50"
         android:textSize="24dp"
         android:textStyle="bold"
@@ -23,9 +22,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Song Author"
-        android:id="@+id/textView2"
+        android:id="@+id/media_songAuthor_textview"
         android:layout_weight="0.50"
-        android:layout_below="@+id/textView"
+        android:layout_below="@id/media_songName_textview"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:paddingLeft="10dp" />
@@ -33,7 +32,7 @@
     <SeekBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
+        android:id="@+id/media_seekBar_seekbar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -46,11 +45,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/media_play_button"
-        android:layout_above="@+id/seekBar"
+        android:layout_above="@id/media_seekBar_seekbar"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/media_play_button"
         android:background="@android:color/transparent"
-        android:scaleX="2.5"
         android:cropToPadding="false"
         android:clickable="true" />
 
@@ -60,9 +58,9 @@
         android:id="@+id/media_skip_prev_button"
         android:src="@mipmap/media_skip_prev_button"
         android:background="@android:color/transparent"
-        android:layout_above="@+id/seekBar"
-        android:layout_toLeftOf="@+id/media_play_button"
-        android:layout_toStartOf="@+id/media_play_button"
+        android:layout_above="@id/media_seekBar_seekbar"
+        android:layout_toLeftOf="@id/media_play_button"
+        android:layout_toStartOf="@id/media_play_button"
         android:clickable="true" />
 
     <ImageButton
@@ -71,9 +69,9 @@
         android:id="@+id/media_skip_next_button"
         android:src="@mipmap/media_skip_next_button"
         android:background="@android:color/transparent"
-        android:layout_above="@+id/seekBar"
-        android:layout_toRightOf="@+id/media_play_button"
-        android:layout_toEndOf="@+id/media_play_button"
+        android:layout_above="@id/media_seekBar_seekbar"
+        android:layout_toRightOf="@id/media_play_button"
+        android:layout_toEndOf="@id/media_play_button"
         android:clickable="true" />
 
 </RelativeLayout>

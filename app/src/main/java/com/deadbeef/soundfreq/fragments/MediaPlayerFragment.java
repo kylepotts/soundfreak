@@ -24,9 +24,9 @@ public class MediaPlayerFragment extends Fragment {
 
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
-    boolean muted, paused;
+    boolean muted, musicPlaying;
 
-    @Bind(R.id.play_circle)
+    @Bind(R.id.media_play_button)
     ImageButton play;
 
 //    @Bind(R.id.media_pause)
@@ -43,7 +43,7 @@ public class MediaPlayerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         muted = false;
-        paused = false;
+        musicPlaying = false;
         setUpMediaPlayer();
     }
 
@@ -64,14 +64,18 @@ public class MediaPlayerFragment extends Fragment {
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
-    @OnClick(R.id.play_circle)
+    @OnClick(R.id.media_play_button)
     public void playMedia(View v){
-        if ( paused ){
-           mediaPlayer.start();
+        ImageButton imageButton = (ImageButton) v;
+        if ( !musicPlaying ){
+            mediaPlayer.start();
+            imageButton.setImageResource(R.mipmap.media_pause_button);
         } else {
             mediaPlayer.pause();
+            imageButton.setImageResource(R.mipmap.media_play_button);
         }
-        
+        musicPlaying = !musicPlaying;
+
     }
 
 //    @OnClick(R.id.media_pause)
