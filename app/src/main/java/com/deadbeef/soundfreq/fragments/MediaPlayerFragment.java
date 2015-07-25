@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.deadbeef.soundfreq.R;
 
@@ -23,16 +24,16 @@ public class MediaPlayerFragment extends Fragment {
 
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
-    boolean muted;
+    boolean muted, paused;
 
-    @Bind(R.id.media_play)
-    Button play;
+    @Bind(R.id.play_circle)
+    ImageButton play;
 
-    @Bind(R.id.media_pause)
-    Button pause;
-
-    @Bind(R.id.media_mute)
-    Button mute;
+//    @Bind(R.id.media_pause)
+//    Button pause;
+//
+//    @Bind(R.id.media_mute)
+//    Button mute;
 
     public MediaPlayerFragment() {}
 
@@ -42,6 +43,7 @@ public class MediaPlayerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         muted = false;
+        paused = false;
         setUpMediaPlayer();
     }
 
@@ -49,7 +51,6 @@ public class MediaPlayerFragment extends Fragment {
         MediaPlayerFragment f = new MediaPlayerFragment();
         return f;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,25 +64,25 @@ public class MediaPlayerFragment extends Fragment {
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
-    @OnClick(R.id.media_play)
-    public void playMedia(){
-        mediaPlayer.start();
+    @OnClick(R.id.play_circle)
+    public void playMedia(View v){
+        if ( paused ){
+           mediaPlayer.start();
+        } else {
+            mediaPlayer.pause();
+        }
+        
     }
 
-    @OnClick(R.id.media_pause)
-    public void pauseMedia(){
-        mediaPlayer.pause();
-    }
-
-    @OnClick(R.id.media_mute)
-    public void muteMedia(){
-        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, !muted);
-        muted = !muted;
-    }
-
-
-
-
-
+//    @OnClick(R.id.media_pause)
+//    public void pauseMedia(){
+//        mediaPlayer.pause();
+//    }
+//
+//    @OnClick(R.id.media_mute)
+//    public void muteMedia(){
+//        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, !muted);
+//        muted = !muted;
+//    }
 
 }
