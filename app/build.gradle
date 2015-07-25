@@ -24,4 +24,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.github.markrjr:Salut:0.4.3'
     compile 'com.github.nkzawa:socket.io-client:0.3.0'
+    compile 'com.cloudinary:cloudinary-core:1.2.1'
+    compile 'com.cloudinary:cloudinary-android:1.2.1'
 }
