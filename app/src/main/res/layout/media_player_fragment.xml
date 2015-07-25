@@ -4,7 +4,8 @@
     android:weightSum="1"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingBottom="30dp">
+    android:paddingBottom="30dp"
+    android:id="@+id/">
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,35 +39,41 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:indeterminate="false" />
+        android:indeterminate="false"
+        android:progress="@integer/abc_max_action_buttons" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/play_circle"
+        android:id="@+id/media_play_button"
         android:layout_above="@+id/seekBar"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/play_circle"
-        android:background="@android:color/transparent"/>
+        android:src="@mipmap/media_play_button"
+        android:background="@android:color/transparent"
+        android:scaleX="2.5"
+        android:cropToPadding="false"
+        android:clickable="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/skip_previous"
-        android:src="@mipmap/skip_previous"
+        android:id="@+id/media_skip_prev_button"
+        android:src="@mipmap/media_skip_prev_button"
         android:background="@android:color/transparent"
         android:layout_above="@+id/seekBar"
-        android:layout_toLeftOf="@+id/play_circle"
-        android:layout_toStartOf="@+id/play_circle" />
+        android:layout_toLeftOf="@+id/media_play_button"
+        android:layout_toStartOf="@+id/media_play_button"
+        android:clickable="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/skip_next"
-        android:src="@mipmap/skip_next"
+        android:id="@+id/media_skip_next_button"
+        android:src="@mipmap/media_skip_next_button"
         android:background="@android:color/transparent"
         android:layout_above="@+id/seekBar"
-        android:layout_toRightOf="@+id/play_circle"
-        android:layout_toEndOf="@+id/play_circle" />
+        android:layout_toRightOf="@+id/media_play_button"
+        android:layout_toEndOf="@+id/media_play_button"
+        android:clickable="true" />
 
 </RelativeLayout>
