@@ -3,6 +3,7 @@ package com.deadbeef.soundfreq.fragments;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.github.nkzawa.socketio.client.Socket;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.UUID;
+import java.util.logging.SocketHandler;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,6 +51,7 @@ public class MediaPlayerFragment extends Fragment {
 
     private Socket socket;
 
+
     public MediaPlayerFragment() {}
 
 
@@ -59,6 +62,10 @@ public class MediaPlayerFragment extends Fragment {
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         muted = false;
         musicPlaying = false;
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isPlaying",false).commit();
+
         setUpMediaPlayer();
 
         try {
@@ -103,6 +110,26 @@ public class MediaPlayerFragment extends Fragment {
     public static MediaPlayerFragment newInstance(){
         MediaPlayerFragment f = new MediaPlayerFragment();
         return f;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isPlaying",musicPlaying).commit();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Boolean isPlaying = sharedPreferences.getBoolean("isPlaying",false);
+        if(isPlaying){
+            play.setImageResource(R.drawable.media_pause_button);
+        } else {
+            play.setImageResource(R.drawable.media_play_button);
+        }
     }
 
     @Override
