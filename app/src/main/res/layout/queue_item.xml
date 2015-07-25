@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/queue_item_cardview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:contentDescription="Album Cover Art"
+            android:id="@+id/queue_albumCover_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/queue_songTitle_textview"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent" />
+
+        <TextView
+            android:id="@+id/queue_contributor_textview"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent" />
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

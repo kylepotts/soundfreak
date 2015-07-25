@@ -1,6 +1,7 @@
 package com.deadbeef.soundfreq.fragments;
 
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.deadbeef.soundfreq.MainActivity;
 import com.deadbeef.soundfreq.R;
 
 import butterknife.Bind;
@@ -25,6 +27,7 @@ public class MediaPlayerFragment extends Fragment {
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
     boolean muted, musicPlaying;
+    MainActivity mainActivity;
 
     @Bind(R.id.media_play_button)
     ImageButton play;
@@ -41,6 +44,8 @@ public class MediaPlayerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.getSupportActionBar().hide();
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         muted = false;
         musicPlaying = false;
@@ -75,14 +80,9 @@ public class MediaPlayerFragment extends Fragment {
             imageButton.setImageResource(R.mipmap.media_play_button);
         }
         musicPlaying = !musicPlaying;
-
     }
 
-//    @OnClick(R.id.media_pause)
-//    public void pauseMedia(){
-//        mediaPlayer.pause();
-//    }
-//
+
 //    @OnClick(R.id.media_mute)
 //    public void muteMedia(){
 //        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, !muted);
