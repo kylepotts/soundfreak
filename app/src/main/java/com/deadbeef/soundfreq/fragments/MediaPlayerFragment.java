@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,9 +21,14 @@ import android.widget.Toast;
 import com.deadbeef.soundfreq.FileUploadUtil;
 import com.deadbeef.soundfreq.MainActivity;
 import com.deadbeef.soundfreq.R;
+import com.deadbeef.soundfreq.models.PlayTimeModel;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
+
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -77,12 +83,32 @@ public class MediaPlayerFragment extends Fragment {
 
         socket.on("play", new Emitter.Listener() {
             @Override
-            public void call(Object... args) {
+            public void call(final Object... args) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        Gson gson = new Gson();
+                        PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
+                        Log.d("MediaPlayBackTime", model.getTime());
+                        DateTime time = new DateTime();
+                        DateTime time2 = new DateTime(model.getTime());
+                        Period period = new Period(time,time2);
+                        Log.d("MediaPlayBackTime", "" + period.getMillis());
                         Toast.makeText(getActivity(), "User pressed play", Toast.LENGTH_SHORT).show();
-                        playMusic();
+                        new CountDownTimer(period.getMillis(),100){
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                playMusic();
+
+                            }
+                        }.start();
                     }
                 });
 
@@ -90,7 +116,7 @@ public class MediaPlayerFragment extends Fragment {
         });
         String filename = UUID.randomUUID().toString()+".jpg";
         FileUploadUtil util = new FileUploadUtil("dwigxrles","576657185946952","tExg7b9_wprcVxoo387BmH-p2uE", getActivity(),filename);
-        //util.uploadFile(R.raw.song);
+        util.uploadFile(R.raw.song);
 
         socket.on("pause", new Emitter.Listener() {
             @Override
@@ -164,17 +190,18 @@ public class MediaPlayerFragment extends Fragment {
     public void playMedia(View v){
         ImageButton imageButton = (ImageButton) v;
         if ( !musicPlaying ){
-            mediaPlayer.start();
+            //mediaPlayer.start();
             imageButton.setImageResource(R.drawable.media_pause_button);
             socket.emit("play", "hello");
         } else {
             mediaPlayer.pause();
             imageButton.setImageResource(R.drawable.media_play_button);
+            musicPlaying = !musicPlaying;
             socket.emit("pause","hello");
 
         }
 
-        musicPlaying = !musicPlaying;
+
 
     }
 
