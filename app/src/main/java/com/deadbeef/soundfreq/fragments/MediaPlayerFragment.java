@@ -36,7 +36,6 @@ import butterknife.OnClick;
 public class MediaPlayerFragment extends Fragment {
 
     MediaPlayer mediaPlayer;
-    File file;
     AudioManager audioManager;
     boolean muted, musicPlaying;
     MainActivity mainActivity;
@@ -114,15 +113,6 @@ public class MediaPlayerFragment extends Fragment {
         mainActivity.performFragmentTransaction(PlayQueueFragment.newInstance());
     }
 
-    public void setUpFile(){
-//        Log.d("tylor", "Resource: ");
-//        try {
-//            file = new File(resource.toURI());
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-    }
-
     public void testDownload(){
         FileDownloadTask fileDownloadTask = new FileDownloadTask("http://tylorgarrett.com/images/me.jpg", "magic_file", getActivity(), new OnFileDownloadedListener() {
             @Override
@@ -133,15 +123,6 @@ public class MediaPlayerFragment extends Fragment {
         });
         fileDownloadTask.execute();
     }
-
-
-
-    public void setUpMetadata(FileDescriptor fd){
-        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-        mediaMetadataRetriever.setDataSource(fd);
-        songName = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        songAuthor = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        Log.d("tylor", "Song Name: " + songName + "&& author: " + songAuthor);
-    }
+    
 
 }
