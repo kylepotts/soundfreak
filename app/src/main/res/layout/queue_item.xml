@@ -20,7 +20,7 @@
             <ImageView
                 android:contentDescription="Album Cover Art"
                 android:layout_margin="16dp"
-                android:id="@+id/queue_albumCover_imageview"
+                android:id="@+id/queue_albumCover_image_view"
                 android:layout_alignParentLeft="true"
                 android:layout_width="42dp"
                 android:src="@mipmap/ic_launcher"
@@ -33,7 +33,7 @@
                 android:textSize="16sp"
                 android:textColor="#fff"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/queue_albumCover_imageview"
+                android:layout_toRightOf="@id/queue_albumCover_image_view"
                 android:layout_width="fill_parent" />
 
             <TextView
@@ -43,9 +43,18 @@
                 android:textColor="#fff"
                 android:alpha="0.54"
                 android:layout_below="@id/queue_songTitle_textview"
-                android:layout_toRightOf="@id/queue_albumCover_imageview"
+                android:layout_toRightOf="@id/queue_albumCover_image_view"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent" />
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@android:color/black"
+                android:id="@+id/divider"
+                android:layout_below="@+id/queue_albumCover_image_view"
+                android:layout_alignRight="@+id/queue_contributor_textview"
+                android:layout_alignEnd="@+id/queue_contributor_textview" />
 
         </RelativeLayout>
 
