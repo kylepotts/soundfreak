@@ -30,4 +30,63 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/queue_item_cardview"
+        android:background="@color/darkgrey"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ff191919"
+            android:elevation="4dp"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:contentDescription="Album Cover Art"
+                android:layout_margin="16dp"
+                android:id="@+id/current_song_album_cover_imageview"
+                android:layout_alignParentLeft="true"
+                android:layout_width="42dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_height="42dp" />
+
+            <TextView
+                android:id="@+id/current_song_name"
+                android:paddingTop="16dp"
+                android:text="This is the Current Song"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/current_song_album_cover_imageview"
+                android:layout_width="fill_parent" />
+
+            <TextView
+                android:id="@+id/current_song_artist"
+                android:text="Artist"
+                android:textSize="14sp"
+                android:textColor="#fff"
+                android:alpha="0.54"
+                android:layout_below="@id/current_song_name"
+                android:layout_toRightOf="@id/current_song_album_cover_imageview"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/media_equalizer"
+                android:id="@+id/media_equalizer_icon"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
 </RelativeLayout>
