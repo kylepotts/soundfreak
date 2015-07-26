@@ -3,10 +3,12 @@ package com.deadbeef.soundfreq.fragments;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,19 +17,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.deadbeef.soundfreq.FileUploadUtil;
 import com.deadbeef.soundfreq.MainActivity;
 import com.deadbeef.soundfreq.R;
 import com.deadbeef.soundfreq.interfaces.OnFileDownloadedListener;
 import com.deadbeef.soundfreq.tasks.FileDownloadTask;
 
+import com.deadbeef.soundfreq.models.PlayTimeModel;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
+
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+
 import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
+import java.net.URISyntaxException;
+import java.util.UUID;
+import java.util.logging.SocketHandler;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,11 +59,10 @@ public class MediaPlayerFragment extends Fragment {
 
     @Bind(R.id.media_music_queue_button)
     ImageButton musicQueue;
-
-
     String songName;
     String songAuthor;
     String imagePath;
+    private Socket socket;
 
 
     public MediaPlayerFragment() {}
@@ -65,15 +75,93 @@ public class MediaPlayerFragment extends Fragment {
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         muted = false;
         musicPlaying = false;
-        //setUpFile();
-        //setUpMetadata();
-        testDownload();
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isPlaying",false).commit();
         setUpMediaPlayer();
+
+        try {
+            socket = IO.socket("https://soundfreq.herokuapp.com/");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        socket.connect();
+
+        socket.on("play", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Gson gson = new Gson();
+                        PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
+                        Log.d("MediaPlayBackTime", model.getTime());
+                        DateTime time = new DateTime();
+                        DateTime time2 = new DateTime(model.getTime());
+                        Period period = new Period(time,time2);
+                        Log.d("MediaPlayBackTime", "" + period.getMillis());
+                        Toast.makeText(getActivity(), "User pressed play", Toast.LENGTH_SHORT).show();
+                        new CountDownTimer(period.getMillis(),100){
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                playMusic();
+
+                            }
+                        }.start();
+                    }
+                });
+
+            }
+        });
+        String filename = UUID.randomUUID().toString()+".jpg";
+        FileUploadUtil util = new FileUploadUtil("dwigxrles","576657185946952","tExg7b9_wprcVxoo387BmH-p2uE", getActivity(),filename);
+        util.uploadFile(R.raw.song);
+
+        socket.on("pause", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("WifiP2p", "in call");
+                        Toast.makeText(getActivity(), "User pressed pause", Toast.LENGTH_SHORT).show();
+                        pauseMusic();
+                    }
+                });
+            }
+        });
     }
 
     public static MediaPlayerFragment newInstance(){
         MediaPlayerFragment f = new MediaPlayerFragment();
         return f;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isPlaying",musicPlaying).commit();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Boolean isPlaying = sharedPreferences.getBoolean("isPlaying",false);
+        if(isPlaying){
+            play.setImageResource(R.drawable.media_pause_button);
+        } else {
+            play.setImageResource(R.drawable.media_play_button);
+        }
     }
 
     @Override
@@ -84,21 +172,43 @@ public class MediaPlayerFragment extends Fragment {
     }
 
     public void setUpMediaPlayer(){
-        //mediaPlayer = MediaPlayer.create(getActivity(), R.raw.song);
+        mediaPlayer = MediaPlayer.create(getActivity(), R.raw.song);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    }
+
+    public void playMusic(){
+        if(!musicPlaying){
+            play.setImageResource(R.drawable.media_pause_button);
+            mediaPlayer.start();
+            musicPlaying = !musicPlaying;
+        }
+    }
+
+    public void  pauseMusic(){
+        if(musicPlaying){
+            play.setImageResource(R.drawable.media_play_button);
+            mediaPlayer.pause();
+            musicPlaying = !musicPlaying;
+        }
     }
 
     @OnClick(R.id.media_play_button)
     public void playMedia(View v){
         ImageButton imageButton = (ImageButton) v;
         if ( !musicPlaying ){
-            mediaPlayer.start();
+            //mediaPlayer.start();
             imageButton.setImageResource(R.drawable.media_pause_button);
+            socket.emit("play", "hello");
         } else {
             mediaPlayer.pause();
             imageButton.setImageResource(R.drawable.media_play_button);
+            musicPlaying = !musicPlaying;
+            socket.emit("pause","hello");
+
         }
-        musicPlaying = !musicPlaying;
+
+
+
     }
 
 
@@ -117,7 +227,6 @@ public class MediaPlayerFragment extends Fragment {
         FileDownloadTask fileDownloadTask = new FileDownloadTask("http://tylorgarrett.com/images/me.jpg", "magic_file", getActivity(), new OnFileDownloadedListener() {
             @Override
             public void onFileDownloaded(FileDescriptor fd) {
-                Log.d("MediaPlayer", "FD="+fd.toString());
                 return ;
             }
         });
