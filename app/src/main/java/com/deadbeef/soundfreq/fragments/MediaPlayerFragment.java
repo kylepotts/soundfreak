@@ -316,7 +316,6 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
             imageButton.setImageResource(R.drawable.media_play_button);
             musicPlaying = !musicPlaying;
             socket.emit("pause","hello");
-
         }
 
 
@@ -340,10 +339,13 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
 
     @OnClick(R.id.media_skip_next_button)
     public void nextSong(){
-        /*
+        if ( !mediaPlayer.isPlaying() ){
+            //update the play button to show pause
+            musicPlaying = !musicPlaying;
+            play.setImageResource(R.drawable.media_pause_button);
+        }
         index = (index + 1) % 3;
         index = Math.abs(index);
-        */
         socket.emit("next","next song");
         Log.d("tylor", Integer.toString(index));
         //setUpMediaPlayer(index);
