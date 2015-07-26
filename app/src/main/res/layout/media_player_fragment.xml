@@ -66,6 +66,7 @@
         android:paddingRight="25dp"
         android:paddingLeft="25dp"
         android:thumbTint="@android:color/white"
+        android:progressTint="@android:color/white"
         android:layout_toRightOf="@+id/media_mute_button"
         android:layout_toLeftOf="@+id/media_info_button"
         android:layout_toStartOf="@+id/media_info_button"
