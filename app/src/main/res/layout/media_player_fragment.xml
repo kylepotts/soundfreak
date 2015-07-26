@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/layout">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/media_backgrounod_imageview"
+        android:visibility="visible"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A Night To Remember"
+        android:id="@+id/media_SongName_textview"
+        android:textSize="25sp"
+        android:paddingLeft="35dp"
+        android:paddingTop="25dp"
+        android:focusable="false"
+        android:textColor="#ccffffff"
+        android:fontFamily="sans-serif-light"
+        android:paddingBottom="5dp"
+        android:shadowColor="#000000"
+        android:shadowDx="-1"
+        android:shadowDy="-1"
+        android:shadowRadius="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Song Author"
+        android:id="@+id/media_songauthor_textview"
+        android:layout_weight="0.50"
+        android:layout_below="@+id/media_SongName_textview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="35dp"
+        android:textSize="20dp"
+        android:textColor="#ccffffff"
+        android:fontFamily="sans-serif-light" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:indeterminate="false"
+        android:progress="@integer/abc_max_action_buttons"
+        android:paddingBottom="30dp"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:layout_toRightOf="@+id/media_mute_button"
+        android:layout_toLeftOf="@+id/media_info_button"
+        android:layout_toStartOf="@+id/media_info_button"
+        android:layout_alignParentBottom="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/media_play_button"
+        android:src="@drawable/media_play_button"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:layout_above="@+id/seekBar"
+        android:layout_centerInParent="true"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/media_skip_prev_button"
+        android:src="@drawable/media_skip_prev_button"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:layout_alignTop="@+id/media_skip_next_button"
+        android:layout_toLeftOf="@+id/media_play_button"
+        android:layout_toStartOf="@+id/media_play_button"
+        android:paddingRight="10dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/media_skip_next_button"
+        android:src="@drawable/media_skip_next_button"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:paddingBottom="15dp"
+        android:layout_above="@+id/seekBar"
+        android:layout_toRightOf="@+id/media_play_button"
+        android:layout_toEndOf="@+id/media_play_button"
+        android:paddingLeft="10dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/media_info_button"
+        android:src="@drawable/media_info_button"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:paddingRight="40dp"
+        android:layout_alignBottom="@+id/media_skip_prev_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingBottom="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/media_mute_button"
+        android:src="@drawable/media_mute_button"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:paddingLeft="40dp"
+        android:layout_alignBottom="@+id/media_skip_prev_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/media_music_queue_button"
+        android:src="@drawable/media_music_queue_button"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:baselineAlignBottom="false"
+        android:paddingTop="25dp"
+        android:paddingRight="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0:00"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/media_skip_prev_button"
+        android:layout_toStartOf="@+id/media_skip_prev_button"
+        android:paddingBottom="37dp"
+        android:paddingLeft="40dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="4:20"
+        android:id="@+id/textView3"
+        android:paddingBottom="37dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingRight="40dp"
+        android:textSize="15sp" />
+
+</RelativeLayout>

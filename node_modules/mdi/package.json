@@ -1,0 +1,59 @@
+{
+  "name": "mdi",
+  "version": "1.1.70",
+  "description": "Dist for Material Design Webfont. This includes the Stock and Community icons in a single webfont collection.",
+  "main": "preview.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Templarian/MaterialDesign-Webfont.git"
+  },
+  "keywords": [
+    "material",
+    "design",
+    "icons",
+    "webfont"
+  ],
+  "author": {
+    "name": "Austin Andrews",
+    "url": "http://twitter.com/templarian"
+  },
+  "licenses": [
+    {
+      "type": "OFL-1.1",
+      "url": "http://scripts.sil.org/OFL"
+    },
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.html"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/Templarian/MaterialDesign/issues"
+  },
+  "homepage": "http://materialdesignicons.com",
+  "gitHead": "5ef96322256d4d34afe4f5cbbaafad583c384b23",
+  "_id": "mdi@1.1.70",
+  "_shasum": "4079f0e342becd16a480838a97aa933149329206",
+  "_from": "mdi@*",
+  "_npmVersion": "2.5.1",
+  "_nodeVersion": "0.12.0",
+  "_npmUser": {
+    "name": "templarian",
+    "email": "admin@templarian.com"
+  },
+  "maintainers": [
+    {
+      "name": "templarian",
+      "email": "admin@templarian.com"
+    }
+  ],
+  "dist": {
+    "shasum": "4079f0e342becd16a480838a97aa933149329206",
+    "tarball": "http://registry.npmjs.org/mdi/-/mdi-1.1.70.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/mdi/-/mdi-1.1.70.tgz"
+}
