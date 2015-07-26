@@ -75,10 +75,10 @@ public class MediaPlayerFragment extends Fragment {
         ImageButton imageButton = (ImageButton) v;
         if ( !musicPlaying ){
             mediaPlayer.start();
-            imageButton.setImageResource(R.mipmap.media_pause_button);
+            imageButton.setImageResource(R.drawable.media_pause_button);
         } else {
             mediaPlayer.pause();
-            imageButton.setImageResource(R.mipmap.media_play_button);
+            imageButton.setImageResource(R.drawable.media_play_button);
         }
         musicPlaying = !musicPlaying;
     }
