@@ -9,7 +9,6 @@
         android:layout_height="match_parent"
         android:id="@+id/imageView"
         android:visibility="visible"
-        android:src="@drawable/albumart"
         android:scaleType="centerCrop"/>
 
     <TextView
@@ -48,26 +47,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:indeterminate="false"
         android:progress="@integer/abc_max_action_buttons"
         android:paddingBottom="30dp"
-        android:paddingRight="35dp"
-        android:paddingLeft="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:layout_toRightOf="@+id/media_mute_button"
+        android:layout_toLeftOf="@+id/media_info_button"
+        android:layout_toStartOf="@+id/media_info_button"
+        android:layout_alignParentBottom="true" />
 
     <ImageButton
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/media_play_button"
         android:src="@drawable/media_play_button"
         android:background="@android:color/transparent"
         android:clickable="true"
         android:layout_above="@+id/seekBar"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerInParent="true"
+        android:layout_alignParentEnd="false" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -78,7 +77,8 @@
         android:clickable="true"
         android:layout_alignTop="@+id/media_skip_next_button"
         android:layout_toLeftOf="@+id/media_play_button"
-        android:layout_toStartOf="@+id/media_play_button" />
+        android:layout_toStartOf="@+id/media_play_button"
+        android:paddingRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -90,7 +90,8 @@
         android:paddingBottom="15dp"
         android:layout_above="@+id/seekBar"
         android:layout_toRightOf="@+id/media_play_button"
-        android:layout_toEndOf="@+id/media_play_button" />
+        android:layout_toEndOf="@+id/media_play_button"
+        android:paddingLeft="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
         android:src="@drawable/media_info_button"
         android:background="@android:color/transparent"
         android:clickable="true"
-        android:paddingRight="35dp"
+        android:paddingRight="40dp"
         android:layout_alignBottom="@+id/media_skip_prev_button"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -114,7 +115,7 @@
         android:clickable="true"
         android:baselineAlignBottom="false"
         android:cropToPadding="false"
-        android:paddingLeft="35dp"
+        android:paddingLeft="40dp"
         android:layout_alignBottom="@+id/media_skip_prev_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -133,5 +134,33 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0:00"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/media_skip_prev_button"
+        android:layout_toStartOf="@+id/media_skip_prev_button"
+        android:paddingBottom="37dp"
+        android:paddingLeft="40dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="4:20"
+        android:id="@+id/textView3"
+        android:paddingBottom="37dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingRight="40dp"
+        android:textSize="15sp" />
 
 </RelativeLayout>
