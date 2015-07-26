@@ -65,6 +65,7 @@
         android:paddingBottom="30dp"
         android:paddingRight="25dp"
         android:paddingLeft="25dp"
+        android:thumbTint="@android:color/white"
         android:layout_toRightOf="@+id/media_mute_button"
         android:layout_toLeftOf="@+id/media_info_button"
         android:layout_toStartOf="@+id/media_info_button"
@@ -77,6 +78,7 @@
         android:src="@drawable/media_play_button"
         android:background="@android:color/transparent"
         android:clickable="true"
+        android:paddingBottom="15dp"
         android:layout_above="@+id/seekBar"
         android:layout_centerInParent="true"/>
 
@@ -99,7 +101,7 @@
         android:src="@drawable/media_skip_next_button"
         android:background="@android:color/transparent"
         android:clickable="true"
-        android:paddingBottom="15dp"
+        android:paddingBottom="30dp"
         android:layout_above="@+id/seekBar"
         android:layout_toRightOf="@+id/media_play_button"
         android:layout_toEndOf="@+id/media_play_button"
@@ -159,6 +161,7 @@
         android:layout_toLeftOf="@+id/media_skip_prev_button"
         android:layout_toStartOf="@+id/media_skip_prev_button"
         android:paddingBottom="37dp"
+        android:textColor="#ffffffff"
         android:paddingLeft="40dp"
         android:textSize="15sp" />
 
@@ -169,6 +172,7 @@
         android:text="4:20"
         android:id="@+id/textView3"
         android:paddingBottom="37dp"
+        android:textColor="#ffffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
