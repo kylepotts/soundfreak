@@ -2,6 +2,7 @@ package com.deadbeef.soundfreq;
 
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,12 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
+import java.io.File;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 /**
@@ -24,6 +29,7 @@ public class WifiP2PTestFragment extends Fragment  {
     private Socket socket;
     private Button playButton;
     private Button pauseButton;
+    Map config = new HashMap();
 
 
     @Override
@@ -48,6 +54,9 @@ public class WifiP2PTestFragment extends Fragment  {
 
             }
         });
+        String filename = UUID.randomUUID().toString()+".jpg";
+        FileUploadUtil util = new FileUploadUtil("dwigxrles","576657185946952","tExg7b9_wprcVxoo387BmH-p2uE", getActivity(),filename);
+        util.uploadFile(R.raw.song);
 
         socket.on("pause", new Emitter.Listener() {
             @Override
@@ -61,6 +70,9 @@ public class WifiP2PTestFragment extends Fragment  {
                 });
             }
         });
+
+         int FileId = R.raw.song;
+
     }
 
 
@@ -80,7 +92,7 @@ public class WifiP2PTestFragment extends Fragment  {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                socket.emit("play","hello");
+                socket.emit("play", "hello");
             }
         });
 
@@ -90,6 +102,7 @@ public class WifiP2PTestFragment extends Fragment  {
                 socket.emit("pause","hello");
             }
         });
+
         return v;
 
     }
