@@ -25,7 +25,7 @@ public class PlayQueueAdapter extends RecyclerView.Adapter<PlayQueueAdapter.View
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 3;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
