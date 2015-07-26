@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import com.deadbeef.soundfreq.MainActivity;
 import com.deadbeef.soundfreq.R;
 
+import java.io.File;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,11 +34,11 @@ public class MediaPlayerFragment extends Fragment {
     @Bind(R.id.media_play_button)
     ImageButton play;
 
-//    @Bind(R.id.media_pause)
-//    Button pause;
-//
-//    @Bind(R.id.media_mute)
-//    Button mute;
+    @Bind(R.id.media_mute_button)
+    ImageButton mute;
+
+    @Bind(R.id.media_music_queue_button)
+    ImageButton musicQueue;
 
     public MediaPlayerFragment() {}
 
@@ -45,7 +47,6 @@ public class MediaPlayerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
-        mainActivity.getSupportActionBar().hide();
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         muted = false;
         musicPlaying = false;
@@ -83,10 +84,19 @@ public class MediaPlayerFragment extends Fragment {
     }
 
 
-//    @OnClick(R.id.media_mute)
-//    public void muteMedia(){
-//        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, !muted);
-//        muted = !muted;
-//    }
+    @OnClick(R.id.media_mute_button)
+    public void muteMedia(){
+        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, !muted);
+        muted = !muted;
+    }
+
+    @OnClick(R.id.media_music_queue_button)
+    public void openQueue(View v){
+        mainActivity.performFragmentTransaction(PlayQueueFragment.newInstance());
+    }
+
+    public void testFileStuff(){
+
+    }
 
 }
