@@ -65,8 +65,7 @@
         android:background="@android:color/transparent"
         android:clickable="true"
         android:layout_above="@+id/seekBar"
-        android:layout_centerInParent="true"
-        android:layout_alignParentEnd="false" />
+        android:layout_centerInParent="true"/>
 
     <ImageButton
         android:layout_width="wrap_content"
