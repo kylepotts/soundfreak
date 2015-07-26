@@ -11,6 +11,19 @@
         android:visibility="visible"
         android:scaleType="centerCrop"/>
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:visibility="visible"
+        android:src="@drawable/gradient"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="200dp"
+        android:visibility="visible"
+        android:src="@drawable/gradient_upside_down"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
