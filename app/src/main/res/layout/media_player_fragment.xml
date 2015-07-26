@@ -7,21 +7,27 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView" />
+        android:id="@+id/imageView"
+        android:visibility="visible"
+        android:src="@drawable/albumart"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="A Night To Remember"
         android:id="@+id/mediaSongName"
-        android:layout_weight="0.50"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:paddingLeft="35dp"
         android:paddingTop="25dp"
         android:focusable="false"
         android:textColor="#ccffffff"
         android:fontFamily="sans-serif-light"
-        android:paddingBottom="5dp" />
+        android:paddingBottom="5dp"
+        android:shadowColor="#000000"
+        android:shadowDx="-1"
+        android:shadowDy="-1"
+        android:shadowRadius="1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,8 +77,8 @@
         android:background="@android:color/transparent"
         android:clickable="true"
         android:layout_alignTop="@+id/media_skip_next_button"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_toLeftOf="@+id/media_play_button"
+        android:layout_toStartOf="@+id/media_play_button" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -83,8 +89,8 @@
         android:clickable="true"
         android:paddingBottom="15dp"
         android:layout_above="@+id/seekBar"
-        android:layout_alignRight="@+id/mediaSongName"
-        android:layout_alignEnd="@+id/mediaSongName" />
+        android:layout_toRightOf="@+id/media_play_button"
+        android:layout_toEndOf="@+id/media_play_button" />
 
     <ImageButton
         android:layout_width="wrap_content"
