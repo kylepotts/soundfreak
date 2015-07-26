@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Roar"
+        android:text="Freebird"
         android:id="@+id/media_SongName_textview"
         android:textSize="25sp"
         android:paddingLeft="35dp"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Katy Perry"
+        android:text="Kryptix"
         android:id="@+id/media_songauthor_textview"
         android:layout_weight="0.50"
         android:layout_below="@+id/media_SongName_textview"

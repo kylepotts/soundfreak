@@ -14,8 +14,8 @@ import com.deadbeef.soundfreq.models.Song;
 public class MainActivity extends AppCompatActivity {
 
     public static int[] songs = new int[] {R.raw.song, R.raw.song2, R.raw.song3};
-    public static String[] names = new String[] {"Roar", "It's Time", "Do You Want to Build a Snowman?"};
-    public static String[] artists = new String[] {"Katy Perry", "Imagine Dragons", "Kristen Bell"};
+    public static String[] names = new String[] {"Freebird", "Try This", "Do You Want to Build a Snowman?"};
+    public static String[] artists = new String[] {"Krypix", "Pegboard Nerds", "Kristen Bell"};
     public static int[] album_covers = new int[] {R.drawable.song1_cover, R.drawable.song2_cover, R.drawable.song3_cover};
 
     @Override
