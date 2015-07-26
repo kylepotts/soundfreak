@@ -4,6 +4,7 @@ package com.deadbeef.soundfreq.fragments;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -150,7 +151,7 @@ public class MediaPlayerFragment extends Fragment {
     public void onResume(){
         super.onResume();
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        Boolean isPlaying = sharedPreferences.getBoolean("isPlaying",false);
+        Boolean isPlaying = sharedPreferences.getBoolean("isPlaying", false);
         if(isPlaying){
             play.setImageResource(R.drawable.media_pause_button);
         } else {
@@ -207,7 +208,10 @@ public class MediaPlayerFragment extends Fragment {
 
 
     @OnClick(R.id.media_mute_button)
-    public void muteMedia(){
+    public void muteMedia(View v){
+        ImageButton muteButton =  (ImageButton) v;
+        int drawable = muted ? R.drawable.media_volume_on : R.drawable.media_mute_button;
+        muteButton.setImageResource(drawable);
         audioManager.setStreamMute(AudioManager.STREAM_MUSIC, !muted);
         muted = !muted;
     }
