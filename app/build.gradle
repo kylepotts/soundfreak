@@ -35,4 +35,5 @@ dependencies {
     compile 'com.github.nkzawa:socket.io-client:0.3.0'
     compile 'com.cloudinary:cloudinary-core:1.2.1'
     compile 'com.cloudinary:cloudinary-android:1.2.1'
+    compile 'commons-io:commons-io:2.4'
 }

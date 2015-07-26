@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 
 import com.deadbeef.soundfreq.MainActivity;
 import com.deadbeef.soundfreq.R;
+import com.deadbeef.soundfreq.interfaces.OnFileDownloadedListener;
 import com.deadbeef.soundfreq.tasks.FileDownloadTask;
 
 import java.io.File;
@@ -123,7 +124,13 @@ public class MediaPlayerFragment extends Fragment {
     }
 
     public void testDownload(){
-        FileDownloadTask fileDownloadTask = new FileDownloadTask("http://tylorgarrett.com/images/me.jpg");
+        FileDownloadTask fileDownloadTask = new FileDownloadTask("http://tylorgarrett.com/images/me.jpg", "magic_file", getActivity(), new OnFileDownloadedListener() {
+            @Override
+            public void onFileDownloaded(FileDescriptor fd) {
+                Log.d("MediaPlayer", "FD="+fd.toString());
+                return ;
+            }
+        });
         fileDownloadTask.execute();
     }
 
