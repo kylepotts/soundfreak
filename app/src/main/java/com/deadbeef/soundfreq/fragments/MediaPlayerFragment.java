@@ -99,9 +99,13 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
 
 
 
+
+
+
         socket.on("play", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
+                Log.d("MEDIA","CALL");
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -112,8 +116,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
                         DateTime time2 = new DateTime(model.getTime());
                         Period period = new Period(time,time2);
                         Log.d("MediaPlayBackTime", "" + period.getMillis());
-                        Handler handle = new Handler();
-                        new CountDownTimer(period.getMillis(),100){
+                        new CountDownTimer(period.getMillis(),500){
 
                             @Override
                             public void onTick(long millisUntilFinished) {
@@ -123,18 +126,18 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
 
                             @Override
                             public void onFinish() {
+                                Log.d("!!!!!!!!", "HELP");
                                 playMusic();
 
                             }
                         }.start();
+
                     }
                 });
 
             }
         });
-        String filename = UUID.randomUUID().toString()+".jpg";
-        FileUploadUtil util = new FileUploadUtil("dwigxrles","576657185946952","tExg7b9_wprcVxoo387BmH-p2uE", getActivity(),filename);
-        //util.uploadFile(R.raw.song);
+
 
         socket.on("pause", new Emitter.Listener() {
             @Override
