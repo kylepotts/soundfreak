@@ -13,6 +13,8 @@ import com.deadbeef.soundfreq.models.Song;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int[] songs = new int[] {R.raw.song, R.raw.song2, R.raw.song3};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

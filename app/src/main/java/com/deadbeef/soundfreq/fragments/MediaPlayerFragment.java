@@ -4,6 +4,7 @@ package com.deadbeef.soundfreq.fragments;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
@@ -45,12 +46,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MediaPlayerFragment extends Fragment {
+public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompletionListener{
 
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
     boolean muted, musicPlaying;
     MainActivity mainActivity;
+    int index = 0;
 
     @Bind(R.id.media_play_button)
     ImageButton play;
@@ -60,6 +62,13 @@ public class MediaPlayerFragment extends Fragment {
 
     @Bind(R.id.media_music_queue_button)
     ImageButton musicQueue;
+
+    @Bind(R.id.media_skip_next_button)
+    ImageButton nextSong;
+
+    @Bind(R.id.media_skip_prev_button)
+    ImageButton prevSong;
+
     String songName;
     String songAuthor;
     String imagePath;
@@ -79,8 +88,7 @@ public class MediaPlayerFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isPlaying",false).commit();
-        setUpMediaPlayer();
-
+        mediaPlayer = MediaPlayer.create(getActivity(), mainActivity.songs[index]);
         try {
             socket = IO.socket("https://soundfreq.herokuapp.com/");
         } catch (URISyntaxException e) {
@@ -125,7 +133,7 @@ public class MediaPlayerFragment extends Fragment {
         });
         String filename = UUID.randomUUID().toString()+".jpg";
         FileUploadUtil util = new FileUploadUtil("dwigxrles","576657185946952","tExg7b9_wprcVxoo387BmH-p2uE", getActivity(),filename);
-        util.uploadFile(R.raw.song);
+        //util.uploadFile(R.raw.song);
 
         socket.on("pause", new Emitter.Listener() {
             @Override
@@ -180,9 +188,17 @@ public class MediaPlayerFragment extends Fragment {
         return v;
     }
 
-    public void setUpMediaPlayer(){
-        mediaPlayer = MediaPlayer.create(getActivity(), R.raw.song);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    public void setUpMediaPlayer(int position){
+        AssetFileDescriptor afd = this.getResources().openRawResourceFd(mainActivity.songs[position]);
+        try {
+            mediaPlayer.reset();
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            afd.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void playMusic(){
@@ -235,6 +251,25 @@ public class MediaPlayerFragment extends Fragment {
         mainActivity.performFragmentTransaction(PlayQueueFragment.newInstance());
     }
 
+    @OnClick(R.id.media_skip_next_button)
+    public void nextSong(){
+        index = (index + 1) % 3;
+        index = Math.abs(index);
+        Log.d("tylor", Integer.toString(index));
+        setUpMediaPlayer(index);
+    }
+
+    @OnClick(R.id.media_skip_prev_button)
+    public void previousSong(){
+        if ( index != 0 ) {
+            index = index - 1;
+        } else {
+            index = 2;
+        }
+        Log.d("tylor", Integer.toString(index));
+        setUpMediaPlayer(index);
+    }
+
     public void testDownload(){
         FileDownloadTask fileDownloadTask = new FileDownloadTask("http://tylorgarrett.com/images/me.jpg", "magic_file", getActivity(), new OnFileDownloadedListener() {
             @Override
@@ -244,6 +279,12 @@ public class MediaPlayerFragment extends Fragment {
         });
         fileDownloadTask.execute();
     }
-    
 
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        index = (index+1) % 3;
+        Log.d("tylor", Integer.toString(index));
+        setUpMediaPlayer(index);
+    }
 }
