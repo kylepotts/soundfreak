@@ -80,7 +80,7 @@ public class MediaPlayerFragment extends Fragment {
             e.printStackTrace();
         }
         socket.connect();
-        socket.emit("enqueue", "http://res.cloudinary.com/dwigxrles/raw/upload/94a5f3b9-c6fc-4b7d-a89c-99dddce9dfb5.jpg");
+        socket.emit("enqueue", "http://res.cloudinary.com/dwigxrles/raw/upload/v1437901258/song1.jpg");
 
 
 
