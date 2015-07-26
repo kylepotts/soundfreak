@@ -43,6 +43,7 @@ public class PlayQueueFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_play_queue, container, false);
         ButterKnife.bind(this, v);
         toolbar.setTitle("Queue");
+        toolbar.inflateMenu(R.menu.add_song_menu);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

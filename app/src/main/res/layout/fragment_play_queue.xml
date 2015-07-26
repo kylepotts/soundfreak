@@ -18,12 +18,16 @@
             android:background="?attr/colorPrimary"
             app:theme="@style/ActionBarThemeOverlay"
             app:popupTheme="@style/ActionBarPopupThemeOverlay"/>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/play_queue_recyclerview"
         android:scrollbars="none"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
