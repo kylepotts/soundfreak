@@ -11,6 +11,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -104,19 +105,19 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
                         Gson gson = new Gson();
                         PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
-                        Log.d("MediaPlayBackTime", model.getTime());
+                        Log.d("MediaPlayBackTimePlay", model.getTime());
                         DateTime time = new DateTime();
                         DateTime time2 = new DateTime(model.getTime());
                         Period period = new Period(time,time2);
                         Log.d("MediaPlayBackTime", "" + period.getMillis());
-                        Toast.makeText(getActivity(), "User pressed play", Toast.LENGTH_SHORT).show();
+                        Handler handle = new Handler();
                         new CountDownTimer(period.getMillis(),100){
 
                             @Override
                             public void onTick(long millisUntilFinished) {
+                                Log.d("MEDIA","left-"+millisUntilFinished);
 
                             }
 
@@ -146,6 +147,72 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
                         pauseMusic();
                     }
                 });
+            }
+        });
+
+        socket.on("prev", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
+                        Log.d("MediaPlayBackTimePrev", model.getTime());
+                        DateTime time = new DateTime();
+                        DateTime time2 = new DateTime(model.getTime());
+                        Period period = new Period(time, time2);
+                        Log.d("MediaPlayBackTime", "" + period.getMillis());
+                        new CountDownTimer(period.getMillis(), 100) {
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                PlayPrevSong();
+
+                            }
+                        }.start();
+
+                    }
+                });
+            }
+        });
+
+
+        socket.on("next", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
+                        Log.d("MediaPlayBackTimeNext", model.getTime());
+                        DateTime time = new DateTime();
+                        DateTime time2 = new DateTime(model.getTime());
+                        Period period = new Period(time, time2);
+                        Log.d("MediaPlayBackTime", "" + period.getMillis());
+                        new CountDownTimer(period.getMillis(), 100) {
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                Log.d("NextPlay", "Finish");
+                                PlayNextSong();
+
+                            }
+                        }.start();
+                    }
+                });
+
             }
         });
     }
@@ -217,6 +284,23 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
         }
     }
 
+    public void PlayNextSong(){
+        index = (index + 1) % 3;
+        index = Math.abs(index);
+        Log.d("tylor", Integer.toString(index));
+        setUpMediaPlayer(index);
+    }
+
+    public void PlayPrevSong(){
+        if ( index != 0 ) {
+            index = index - 1;
+        } else {
+            index = 2;
+        }
+        Log.d("tylor", Integer.toString(index));
+        setUpMediaPlayer(index);
+    }
+
     @OnClick(R.id.media_play_button)
     public void playMedia(View v){
         ImageButton imageButton = (ImageButton) v;
@@ -253,21 +337,27 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
 
     @OnClick(R.id.media_skip_next_button)
     public void nextSong(){
+        /*
         index = (index + 1) % 3;
         index = Math.abs(index);
+        */
+        socket.emit("next","next song");
         Log.d("tylor", Integer.toString(index));
-        setUpMediaPlayer(index);
+        //setUpMediaPlayer(index);
     }
 
     @OnClick(R.id.media_skip_prev_button)
     public void previousSong(){
+        /*
         if ( index != 0 ) {
             index = index - 1;
         } else {
             index = 2;
         }
+        */
+        socket.emit("prev","prev");
         Log.d("tylor", Integer.toString(index));
-        setUpMediaPlayer(index);
+        //setUpMediaPlayer(index);
     }
 
     public void testDownload(){
