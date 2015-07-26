@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.deadbeef.soundfreq.fragments.MediaPlayerFragment;
+import com.deadbeef.soundfreq.models.Song;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,4 +36,5 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
 }

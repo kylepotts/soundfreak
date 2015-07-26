@@ -84,7 +84,7 @@ public class MediaPlayerFragment extends Fragment {
     }
 
     public void setUpMediaPlayer(){
-        mediaPlayer = MediaPlayer.create(getActivity(), R.raw.song);
+        //mediaPlayer = MediaPlayer.create(getActivity(), R.raw.song);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
@@ -129,15 +129,7 @@ public class MediaPlayerFragment extends Fragment {
 
 
 
-    public void setUpMetadata(){
-        FileOutputStream fileOutputStream = null;
-        FileDescriptor fd = null;
-        try {
-            fileOutputStream = new FileOutputStream(file);
-            fd = fileOutputStream.getFD();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+    public void setUpMetadata(FileDescriptor fd){
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         mediaMetadataRetriever.setDataSource(fd);
         songName = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
