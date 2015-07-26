@@ -104,34 +104,12 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
 
         socket.on("play", new Emitter.Listener() {
             @Override
-            public void call(final Object... args) {
-                Log.d("MEDIA","CALL");
+            public void call(Object... args) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Gson gson = new Gson();
-                        PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
-                        Log.d("MediaPlayBackTimePlay", model.getTime());
-                        DateTime time = new DateTime();
-                        DateTime time2 = new DateTime(model.getTime());
-                        Period period = new Period(time,time2);
-                        Log.d("MediaPlayBackTime", "" + period.getMillis());
-                        new CountDownTimer(period.getMillis(),500){
-
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                Log.d("MEDIA","left-"+millisUntilFinished);
-
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                Log.d("!!!!!!!!", "HELP");
-                                playMusic();
-
-                            }
-                        }.start();
-
+                        Toast.makeText(getActivity(), "User pressed play", Toast.LENGTH_SHORT).show();
+                        playMusic();
                     }
                 });
 
@@ -159,27 +137,8 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Gson gson = new Gson();
-                        PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
-                        Log.d("MediaPlayBackTimePrev", model.getTime());
-                        DateTime time = new DateTime();
-                        DateTime time2 = new DateTime(model.getTime());
-                        Period period = new Period(time, time2);
-                        Log.d("MediaPlayBackTime", "" + period.getMillis());
-                        new CountDownTimer(period.getMillis(), 100) {
-
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                PlayPrevSong();
-
-                            }
-                        }.start();
-
+                        Toast.makeText(getActivity(), "User pressed next", Toast.LENGTH_SHORT).show();
+                        PlayPrevSong();
                     }
                 });
             }
@@ -192,27 +151,8 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Gson gson = new Gson();
-                        PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
-                        Log.d("MediaPlayBackTimeNext", model.getTime());
-                        DateTime time = new DateTime();
-                        DateTime time2 = new DateTime(model.getTime());
-                        Period period = new Period(time, time2);
-                        Log.d("MediaPlayBackTime", "" + period.getMillis());
-                        new CountDownTimer(period.getMillis(), 100) {
-
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                Log.d("NextPlay", "Finish");
-                                PlayNextSong();
-
-                            }
-                        }.start();
+                        Log.d("tylor", "nextnext");
+                        PlayNextSong();
                     }
                 });
 
@@ -259,16 +199,12 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
     }
 
     public void setUpMediaPlayer(int position){
-        AssetFileDescriptor afd = this.getResources().openRawResourceFd(mainActivity.songs[position]);
-        try {
+        if ( mediaPlayer != null ){
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-            afd.close();
-        } catch (Exception e){
-            e.printStackTrace();
         }
+        mediaPlayer = MediaPlayer.create(getActivity(), mainActivity.songs[position]);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.start();
     }
 
     public void playMusic(){
@@ -339,30 +275,21 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
 
     @OnClick(R.id.media_skip_next_button)
     public void nextSong(){
+        Log.d("tylor", "next song button");
         if ( !mediaPlayer.isPlaying() ){
             //update the play button to show pause
             musicPlaying = !musicPlaying;
             play.setImageResource(R.drawable.media_pause_button);
         }
-        index = (index + 1) % 3;
-        index = Math.abs(index);
-        socket.emit("next","next song");
-        Log.d("tylor", Integer.toString(index));
-        //setUpMediaPlayer(index);
+        socket.emit("next","hello");
+        Log.d("tylor", "next song button");
     }
 
     @OnClick(R.id.media_skip_prev_button)
     public void previousSong(){
-        /*
-        if ( index != 0 ) {
-            index = index - 1;
-        } else {
-            index = 2;
-        }
-        */
-        socket.emit("prev","prev");
+        Log.d("tylor", "prevprev");
+        socket.emit("prev","hello");
         Log.d("tylor", Integer.toString(index));
-        //setUpMediaPlayer(index);
     }
 
     public void testDownload(){
