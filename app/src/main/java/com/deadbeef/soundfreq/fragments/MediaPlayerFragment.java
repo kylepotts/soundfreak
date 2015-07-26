@@ -87,7 +87,6 @@ public class MediaPlayerFragment extends Fragment {
             e.printStackTrace();
         }
         socket.connect();
-        socket.emit("enqueue", "http://res.cloudinary.com/dwigxrles/raw/upload/v1437901258/song1.jpg");
 
 
 
@@ -101,7 +100,6 @@ public class MediaPlayerFragment extends Fragment {
                         Gson gson = new Gson();
                         PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
                         Log.d("MediaPlayBackTime", model.getTime());
-                        Log.d("MediaPlayBackFile", model.getFileUrl());
                         DateTime time = new DateTime();
                         DateTime time2 = new DateTime(model.getTime());
                         Period period = new Period(time,time2);
