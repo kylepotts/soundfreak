@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:id="@+id/media_backgrounod_imageview"
         android:visibility="visible"
+        android:src="@drawable/song1_cover"
         android:scaleType="centerCrop"/>
 
     <ImageView
@@ -27,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="A Night To Remember"
+        android:text="Roar"
         android:id="@+id/media_SongName_textview"
         android:textSize="25sp"
         android:paddingLeft="35dp"
@@ -45,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Song Author"
+        android:text="Katy Perry"
         android:id="@+id/media_songauthor_textview"
         android:layout_weight="0.50"
         android:layout_below="@+id/media_SongName_textview"

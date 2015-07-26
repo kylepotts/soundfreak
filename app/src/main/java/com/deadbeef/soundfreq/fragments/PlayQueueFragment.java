@@ -47,7 +47,7 @@ public class PlayQueueFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new PlayQueueAdapter();
+        adapter = new PlayQueueAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         return v;
     }

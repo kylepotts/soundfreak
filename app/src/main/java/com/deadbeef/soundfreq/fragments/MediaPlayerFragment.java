@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deadbeef.soundfreq.FileUploadUtil;
@@ -263,9 +265,15 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayer.OnCompl
             mediaPlayer.prepare();
             mediaPlayer.start();
             afd.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        TextView title = (TextView) mainActivity.findViewById(R.id.media_SongName_textview);
+        title.setText(mainActivity.names[position]);
+        TextView artist = (TextView) mainActivity.findViewById(R.id.media_songauthor_textview);
+        artist.setText(mainActivity.artists[position]);
+        ImageView cover = (ImageView) mainActivity.findViewById(R.id.media_backgrounod_imageview);
+        cover.setImageResource(mainActivity.album_covers[position]);
     }
 
     public void playMusic(){
