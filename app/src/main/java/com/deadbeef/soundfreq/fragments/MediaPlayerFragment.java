@@ -4,6 +4,7 @@ package com.deadbeef.soundfreq.fragments;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -86,6 +87,9 @@ public class MediaPlayerFragment extends Fragment {
             e.printStackTrace();
         }
         socket.connect();
+        socket.emit("enqueue", "http://res.cloudinary.com/dwigxrles/raw/upload/v1437901258/song1.jpg");
+
+
 
         socket.on("play", new Emitter.Listener() {
             @Override
@@ -97,6 +101,7 @@ public class MediaPlayerFragment extends Fragment {
                         Gson gson = new Gson();
                         PlayTimeModel model = gson.fromJson(args[0].toString(), PlayTimeModel.class);
                         Log.d("MediaPlayBackTime", model.getTime());
+                        Log.d("MediaPlayBackFile", model.getFileUrl());
                         DateTime time = new DateTime();
                         DateTime time2 = new DateTime(model.getTime());
                         Period period = new Period(time,time2);
@@ -156,12 +161,18 @@ public class MediaPlayerFragment extends Fragment {
     public void onResume(){
         super.onResume();
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        Boolean isPlaying = sharedPreferences.getBoolean("isPlaying",false);
+        Boolean isPlaying = sharedPreferences.getBoolean("isPlaying", false);
         if(isPlaying){
             play.setImageResource(R.drawable.media_pause_button);
         } else {
             play.setImageResource(R.drawable.media_play_button);
         }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        socket.disconnect();
     }
 
     @Override
@@ -213,7 +224,10 @@ public class MediaPlayerFragment extends Fragment {
 
 
     @OnClick(R.id.media_mute_button)
-    public void muteMedia(){
+    public void muteMedia(View v){
+        ImageButton muteButton =  (ImageButton) v;
+        int drawable = muted ? R.drawable.media_volume_on : R.drawable.media_mute_button;
+        muteButton.setImageResource(drawable);
         audioManager.setStreamMute(AudioManager.STREAM_MUSIC, !muted);
         muted = !muted;
     }
