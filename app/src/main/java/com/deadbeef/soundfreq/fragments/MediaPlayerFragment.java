@@ -4,6 +4,7 @@ package com.deadbeef.soundfreq.fragments;
 import android.app.ActionBar;
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,8 +18,15 @@ import android.widget.ImageButton;
 
 import com.deadbeef.soundfreq.MainActivity;
 import com.deadbeef.soundfreq.R;
+import com.deadbeef.soundfreq.tasks.FileDownloadTask;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,6 +35,7 @@ import butterknife.OnClick;
 public class MediaPlayerFragment extends Fragment {
 
     MediaPlayer mediaPlayer;
+    File file;
     AudioManager audioManager;
     boolean muted, musicPlaying;
     MainActivity mainActivity;
@@ -40,6 +49,12 @@ public class MediaPlayerFragment extends Fragment {
     @Bind(R.id.media_music_queue_button)
     ImageButton musicQueue;
 
+
+    String songName;
+    String songAuthor;
+    String imagePath;
+
+
     public MediaPlayerFragment() {}
 
 
@@ -50,6 +65,9 @@ public class MediaPlayerFragment extends Fragment {
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         muted = false;
         musicPlaying = false;
+        //setUpFile();
+        //setUpMetadata();
+        testDownload();
         setUpMediaPlayer();
     }
 
@@ -95,8 +113,36 @@ public class MediaPlayerFragment extends Fragment {
         mainActivity.performFragmentTransaction(PlayQueueFragment.newInstance());
     }
 
-    public void testFileStuff(){
+    public void setUpFile(){
+//        Log.d("tylor", "Resource: ");
+//        try {
+//            file = new File(resource.toURI());
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+    }
 
+    public void testDownload(){
+        FileDownloadTask fileDownloadTask = new FileDownloadTask("http://tylorgarrett.com/images/me.jpg");
+        fileDownloadTask.execute();
+    }
+
+
+
+    public void setUpMetadata(){
+        FileOutputStream fileOutputStream = null;
+        FileDescriptor fd = null;
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            fd = fileOutputStream.getFD();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+        mediaMetadataRetriever.setDataSource(fd);
+        songName = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        songAuthor = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        Log.d("tylor", "Song Name: " + songName + "&& author: " + songAuthor);
     }
 
 }
